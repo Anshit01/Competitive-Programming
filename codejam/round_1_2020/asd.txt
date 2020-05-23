@@ -1,0 +1,18 @@
+if(prefix.length() > prefix_max.length()){
+                    if(endsWith(prefix, prefix_max)){
+                        prefix_max = prefix;
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
+                else if(prefix.length() < prefix_max.length()){
+                    if(!endsWith(prefix_max, prefix)){
+                        flag = false;
+                    }
+                }
+                else{
+                    if(prefix_max.compare(prefix) != 0){
+                        flag = false;
+                    }
+                }

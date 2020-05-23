@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define f(i, x, n) for(int i = x; i < n; i++)
+#define dbg(x) cout << x << endl
+#define dbg2(x, y) cout << x << "  " << y << endl
+#define dbg3(x, y, z) cout << x << "  " << y << "  " << z << endl
+#define mod 1000000007
+using namespace std;
+
+void rotate(vector<int>& nums, int k) {
+    vector<int> ans(nums.end()-k, nums.end());
+    int n = nums.size();
+    for(int i = 0; i < n-k; i++){
+        ans.push_back(nums[i]);
+    }
+    nums = ans;
+}
+
+int main(){
+    ios::sync_with_stdio(0);
+    int t, n;
+    
+}

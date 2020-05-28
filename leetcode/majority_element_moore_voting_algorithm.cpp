@@ -8,6 +8,23 @@
 #define mod 1000000007
 using namespace std;
 
+int majorityElement(vector<int>& nums) {
+        int count = 1, candidate = nums[0];
+        int n = nums.size();
+        for(int i = 1; i < n; i++){
+            if(nums[i] == candidate){
+                count++;
+            }else{
+                count--;
+            }
+            if(count == 0){
+                candidate = nums[i];
+                count = 1;
+            }
+        }
+        return candidate;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(NULL);

@@ -8,6 +8,19 @@
 #define mod 1000000007
 using namespace std;
 
+int numberOfSteps (int num) {
+    int count = 0;
+    while(num > 0){
+        if(num & 1){
+            num--;
+        }else{
+            num = num >> 1;
+        }
+        count++;
+    }
+    return count;
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(NULL);

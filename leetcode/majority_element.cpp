@@ -8,6 +8,11 @@
 #define mod 1000000007
 using namespace std;
 
+int majorityElement(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+    return nums[nums.size()/2];
+}
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(NULL);

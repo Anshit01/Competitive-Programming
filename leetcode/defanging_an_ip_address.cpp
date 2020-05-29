@@ -9,7 +9,16 @@ using namespace std;
 
 string defangIPaddr(string address) {
     string s;
-    
+    for(char c : address){
+        if(c == '.'){
+            s.push_back('[');
+            s.push_back('.');
+            s.push_back(']');
+        }else{
+            s.push_back(c);
+        }
+    }
+    return s;
 }
 
 int main(){

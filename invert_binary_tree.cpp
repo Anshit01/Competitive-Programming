@@ -19,25 +19,17 @@ struct TreeNode {
 
 class Solution {
 public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<double> ans;
-        while(!q.empty()){
-            queue<TreeNode*> qnew;
-            double sum = 0;
-            int n = q.size();
-            while(!q.empty()){
-                auto node = q.front();
-                q.pop();
-                sum += node->val;
-                if(node->left) qnew.push(node->left);
-                if(node->right) qnew.push(node->right);
-            }
-            ans.push_back(sum/n);
-            q = qnew;
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == NULL){
+            return NULL;
         }
-        return ans;
+        if(root->left == NULL && root->right == NULL){
+            return root;
+        }
+        swap(root->left, root->right);
+        invertTree(root->right);
+        invertTree(root->left);
+        return root;
     }
 };
 

@@ -19,26 +19,38 @@ struct TreeNode {
 
 class Solution {
 public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<double> ans;
-        while(!q.empty()){
-            queue<TreeNode*> qnew;
-            double sum = 0;
-            int n = q.size();
-            while(!q.empty()){
-                auto node = q.front();
-                q.pop();
-                sum += node->val;
-                if(node->left) qnew.push(node->left);
-                if(node->right) qnew.push(node->right);
-            }
-            ans.push_back(sum/n);
-            q = qnew;
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if(similar(s, t)){
+            return true;
         }
-        return ans;
+        if(s->left != NULL){
+            if(isSubtree(s->left, t)){
+                return true;
+            }
+        }
+        if(s->right != NULL){
+            if(isSubtree(s->right, t)){
+                return true;
+            }
+        }
+        return false;
     }
+
+private:
+    bool similar(TreeNode* s, TreeNode* t){
+        if(s == NULL && t == NULL){
+            return true;
+        }
+        if(s->val != t->val){
+            return false;
+        }
+        if(!similar(s->left, t->left)){
+            return false;
+        }
+        return similar(s->right, t->right);
+    }
+
+
 };
 
 int main(){

@@ -18,27 +18,22 @@ struct TreeNode {
 };
 
 class Solution {
+
 public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<double> ans;
-        while(!q.empty()){
-            queue<TreeNode*> qnew;
-            double sum = 0;
-            int n = q.size();
-            while(!q.empty()){
-                auto node = q.front();
-                q.pop();
-                sum += node->val;
-                if(node->left) qnew.push(node->left);
-                if(node->right) qnew.push(node->right);
-            }
-            ans.push_back(sum/n);
-            q = qnew;
-        }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        traverse(root, ans);
         return ans;
     }
+
+private:
+    void traverse(TreeNode* node, vector<int>& ans){
+        if(node == NULL) return;
+        traverse(node->left, ans);
+        ans.push_back(node->val);
+        traverse(node->right, ans);
+    }
+
 };
 
 int main(){

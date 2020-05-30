@@ -19,25 +19,34 @@ struct TreeNode {
 
 class Solution {
 public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<double> ans;
-        while(!q.empty()){
-            queue<TreeNode*> qnew;
-            double sum = 0;
-            int n = q.size();
-            while(!q.empty()){
-                auto node = q.front();
-                q.pop();
-                sum += node->val;
-                if(node->left) qnew.push(node->left);
-                if(node->right) qnew.push(node->right);
-            }
-            ans.push_back(sum/n);
-            q = qnew;
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL){
+            return true;
         }
-        return ans;
+        if(root->left != NULL){
+            if(root->left->val >= root->val){
+                return false;
+            }
+        }
+        if(root->right != NULL){
+            if(root->val >= root->right->val){
+                return false;
+            }
+        }
+        if(isValidBST(root->left) && isValidBST(root->right)){
+            return true;
+        }
+        return false;
+    }
+
+private:
+    bool validate(TreeNode* node, int lastMax){
+        if(node == NULL){
+            return true;
+        }
+        if(node->left != NULL){
+            
+        }
     }
 };
 

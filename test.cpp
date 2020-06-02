@@ -1,16 +1,32 @@
-/* *>>>>>Anshit_Bhardwaj<<<<<* */
-#include <bits/stdc++.h>
-#define ll long long
-#define f(i, x, n) for(int i = x; i < n; i++)
-#define dbg(x) cout << x << endl
-#define dbg2(x, y) cout << x << ' ' << y << endl
-#define dbg3(x, y, z) cout << x << ' ' << y << ' ' << z << endl
-#define mod 1000000007
-using namespace std;
+#include <stdio.h>
+#define SIZE 1000
+int Stack[1000], top = -1;
+
+void push(char c){
+    if(top < SIZE){
+        top++;
+        Stack[top] = c;
+    }
+}
+
+char pop(){
+    if(top != -1){
+        return Stack[top--];
+    }
+}
 
 int main(){
-    cout << sizeof(double) << endl;
-    cout << sizeof(long double) << endl;
-    dbg3(sizeof(__int128_t), sizeof(__int64_t), sizeof(__int32_t));
-
+    char str[100];
+    scanf("%s", str);
+    int i = 0;
+    while(str[i] != '\0'){
+        push(str[i]);
+        i++;
+    }
+    i = 0;
+    while(str[i] != '\0'){
+        str[i] = pop();
+        i++;
+    }
+    printf("%s", str);
 }

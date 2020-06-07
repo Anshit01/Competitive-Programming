@@ -9,16 +9,51 @@
 using namespace std;
 
 vector<int> findLongestSubarrayBySum(int s, vector<int> arr){
-    
+    int curSum = 0, start = 0, end = 0, maxlen = 0;
+    vector<int> ans({-1});
+    int n = arr.size();
+    if(n == 1 && arr[0] == s){
+        return {1, 1};
+    }
+    if(s == 0){
+        for(int i = 0; i < n; i++){
+            if(arr[i] == 0){
+                return {i+1, i+1};
+            }
+        }
+        return {-1};
+    }
+    while(end < n){
+        while(curSum <= s && end < n){
+            end++;
+            curSum += arr[end-1];
+            if(curSum == s){
+                if(end - start > maxlen){
+                    maxlen = end - start;
+                    ans = {start + 1 , end};
+                }
+            }
+        }
+        while(curSum >= s){
+            curSum -= arr[start];
+            start++;
+            if(curSum == s){
+                if(end - start > maxlen){
+                    maxlen = end - start;
+                    ans = {start + 1, end};
+                }
+            }
+        }
+        
+    }
+    return ans;
 }
 
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int T, n;
-    cin >> T;
-    while(T--){
-        cin >> n;
-        
+    vector<int> vec({1, 0, 2});
+    auto ans = findLongestSubarrayBySum(0, vec);
+    for(int i : ans){
+        cout << i << ' ';
     }
+    cout << endl;
 }

@@ -7,28 +7,15 @@
 #define mod 1000000007
 using namespace std;
 
-long long fact[15];
-
-void calc_fact(){
-    fact[0] = 1;
-    for(int i = 1; i < 15; i++){
-        fact[i] = fact[i-1] * i;
-    }
-}
-
-long long combination(int n, int r){
-    if(r < n-r){
-        r = n-r;
-    }
-    long long ans = 1;
-    for(int i = n; i > r; i--){
-        ans *= i;
-    }
-    for(int i )
-}
-
 int climbStairs(int n) {
-    
+    long long n1 = 2, n2 = 1;
+    if(n == 1) return 1;
+    if(n == 2) return 2;
+    for(int i = 3; i <= n; i++){
+        n1 += n2;
+        n2 = n1 - n2;
+    }
+    return n1;
 }
 
 int main(){

@@ -11,10 +11,20 @@ using namespace std;
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T, n;
+    int T;
     cin >> T;
     while(T--){
-        cin >> n;
-        
+        int a , b;
+        cin >> a >> b;
+        int ans = 0;
+        if(a < b){
+            swap(a, b);
+        }
+        if(a/2 >= b){
+            ans = b;
+        }else{
+            ans = (a+b)/3;
+        }
+        cout << ans << endl;
     }
 }

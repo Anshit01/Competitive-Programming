@@ -21,18 +21,43 @@ int main(){
         f(i, 0, n){
             cin >> arr[i];
         }
-        vector<pair<int, int>> sorted(n);
-        for(int i= 0; i < n; i++){
-            int m = arr[0];
-            int mi = 0;
-            for(int j = 0; j < n; j++){
-                if(m > arr[j]){
-                    mi = j;
-                    m = arr[j];
+        sort(s.begin(), s.end(), greater<char>());
+        queue<pair<char, int>> cnt;
+        cnt.push({s[0], 1});
+        for(int i = 1; i < s.size(); i++){
+            if(cnt.back().first == s[i]){
+                cnt.back().second++;
+            }else{
+                cnt.push({s[i], 1});
+            }
+        }
+        int zeros = 0;
+        string ans(n, ' ');
+        for(int a : arr){
+            if(a == 0) zeros++;
+        }
+        while(zeros){
+            while(cnt.front().second < zeros){
+                cnt.pop();
+            }
+            char c = cnt.front().first;
+            cnt.pop();
+            auto tmparr(arr);
+            f(i, 0, n){
+                if(arr[i] == 0){
+                    ans[i] = c;
+                    f(j, 0, n){
+                        tmparr[j] -= abs(i - j);
+                    }
+                    tmparr[i] = -1;
                 }
             }
-            sorted[i] = {m, mi};
+            arr = tmparr;
+            zeros = 0;
+            f(i, 0, n){
+                if(arr[i] == 0) zeros++;
+            }
         }
-        
+        cout << ans << endl;
     }
 }

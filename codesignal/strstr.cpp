@@ -17,44 +17,34 @@ inline int tonum(char c){
 
 int strstr(std::string s, std::string x) {
     const long long mod = 1e9 + 7;
-    const long long p1 = 61;
-    const long long p2 = 59;
+    const long long p = 31;
     int n = s.size();
     int m = x.size();
     if(n < m){
         return -1;
     }
-    vector<long long> p1_pow(n);
-    p1_pow[0] = 1;
+    vector<long long> p_pow(n);
+    p_pow[0] = 1;
     for(int i = 1; i < n; i++){
-        p1_pow[i] = (p1 * p1_pow[i-1]) % mod;
+        p_pow[i] = (p * p_pow[i-1]) % mod;
     }
-    vector<long long> p2_pow(n);
-    p2_pow[0] = 1;
-    for(int i = 1; i < n; i++){
-        p2_pow[i] = (p1 * p2_pow[i-1]) % mod;
-    }
-    long long xhash1 = 0;
+    
+    long long xhash = 0;
     for(int i = 0; i < m; i++){
-        xhash1 += (p1_pow[i] * tonum(x[i])) % mod;
+        xhash += (p_pow[i] * tonum(x[i])) % mod;
     }
-    long long xhash2 = 0;
-    for(int i = 0; i < m; i++){
-        xhash2 += (p2_pow[i] * tonum(x[i])) % mod;
-    }
-    vector<long long> shash1(n+1);
-    shash1[0] = 0;
+    
+    vector<long long> shash(n+1);
+    shash[0] = 0;
     for(int i = 0; i < n; i++){
-        shash1[i+1] = (shash1[i] + p1_pow[i] * tonum(s[i])) % mod;
+        shash[i+1] = (shash[i] + p_pow[i] * tonum(s[i])) % mod;
     }
-    vector<long long> shash2(n+1);
-    shash2[0] = 0;
-    for(int i = 0; i < n; i++){
-        shash2[i+1] = (shash2[i] + p2_pow[i] * tonum(s[i])) % mod;
-    }
+    
     for(int i = 0; i + m - 1 < n; i++){
-        if((xhash1 * p1_pow[i]) % mod == (shash1[i+m] + mod - shash1[i]) % mod && (xhash2 * p2_pow[i]) % mod == (shash2[i+m] + mod - shash2[i]) % mod){
-            return i;
+        if((xhash * p_pow[i]) % mod == (shash[i+m] + mod - shash[i]) % mod){
+            if(x == s.substr(i, m)){
+                return i;
+            }
         }
     }
     return -1;

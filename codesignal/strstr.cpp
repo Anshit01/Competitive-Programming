@@ -17,7 +17,7 @@ inline int tonum(char c){
 
 int strstr(std::string s, std::string x) {
     const long long mod = 1e9 + 7;
-    const long long p = 31;
+    const long long p = 61;
     int n = s.size();
     int m = x.size();
     if(n < m){
@@ -31,7 +31,7 @@ int strstr(std::string s, std::string x) {
     
     long long xhash = 0;
     for(int i = 0; i < m; i++){
-        xhash += (p_pow[i] * tonum(x[i])) % mod;
+        xhash = (xhash + p_pow[i] * tonum(x[i])) % mod;
     }
     
     vector<long long> shash(n+1);

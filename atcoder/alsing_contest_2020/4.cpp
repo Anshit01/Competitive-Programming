@@ -8,19 +8,22 @@
 #define mod 1000000007
 using namespace std;
 
-int md(string& num, int a){
+vector<int> md(string& num, int a){
     int res = 0;
+    int n = num.size();
     int pc1 = a-1, pc2 = a+1;
-    vector<int> l(num.size()), r(num.size());
-    vector<int> unit_mods(num.size());
+    vector<int> l(n), r(n);
+    vector<int> unit_mods(n);
     unit_mods[0] = 1;
-    for(int i = 0; i < num.size(); i++){
+    for(int i = 0; i < n; i++){
         res = (res*2 + (int)num[i] - '0') %a;
     }
     f(i, 1, n){
         unit_mods[i] = (unit_mods[i-1] * 2);//////////////////////////
     }
-    return res;
+    vector<int> ans;
+
+    return ans;
 }
 
 int main(){
@@ -37,7 +40,7 @@ int main(){
     }
     vector<int> mods = md(x, pc);
     f(i, 0, n){
-        int tpc = pc, tnum = num;
+        int tpc = pc;
         if(x[i] == '1'){
             tpc--;
         }else{

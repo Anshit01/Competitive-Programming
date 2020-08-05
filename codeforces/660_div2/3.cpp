@@ -22,11 +22,16 @@ int main(){
         f(i, 0, n){
             cin >> h[i];
         }
+        vector<int> g(n), b(n);
+        f(i, 0, n){
+            g[i] = (p[i] + h[i])/2;
+            b[i] = (p[i] - h[i])/2;
+        }
         vector<vector<int>> graph(n, vector<int>());
-        int a, b;
+        int inta, intb;
         f(i, 1, n){
-            cin >> a >> b;
-            graph[a-1].push_back(b-1);
+            cin >> inta >> intb;
+            graph[inta-1].push_back(intb-1);
         }
         
         vector<pair<int, int>> stac;
@@ -42,12 +47,16 @@ int main(){
             }
         }
         vector<int> sumDiff(n, 0);
+        vector<int> g_child(n, 0);
+        vector<int> b_child(n, 0);
         bool flag = true;
         while(!stac.empty()){
             int curCity = stac.back().first;
             int parentCity = stac.back().second;
             int hi = h[curCity];
             int pi = p[curCity];
+            int gi = g[curCity];
+            int bi = b[curCity];
             if(hi > pi || hi < -pi){
                 flag = false;
                 break;
@@ -64,15 +73,23 @@ int main(){
                     break;
                 }
             }
-            if(pi-hi < pi - sumDiff[curCity]){
+            // if(pi-hi > pi - sumDiff[curCity]){
+            //     flag = false;
+            //     break;
+            // }
+
+            if(bi > pi - b_child[curCity]){
                 flag = false;
                 break;
             }
+
             if(parentCity == -1){
                 break;
             }
             p[parentCity] += pi;
             sumDiff[parentCity] += hi;
+            g_child[parentCity] += gi;
+            b_child[parentCity] += bi;
             stac.pop_back();
 
         }

@@ -19,18 +19,28 @@ int main(){
         cin >> s;
         int k = 1;
         int ki = 0;
-        char prev = s[0];
         vector<int> arr(n);
+        vector<char> lastarr(n);
         arr[0] = 1;
+        lastarr[0] = s[0];
         f(i, 1, n){
-            if(prev != s[i]){
-                prev = s[i];
+            if(lastarr[ki] != s[i]){
                 ki = 0;
-            }else{
-                ki++;
-                if(ki == k){
-                    k++;
+            }
+            bool flag = false;
+            f(j, ki, k){
+                if(lastarr[j] != s[i]){
+                    ki = j;
+                    lastarr[j] = s[i];
+                    flag = true;
+                    break;
                 }
+            }
+            if(!flag){
+                
+                ki = k;
+                k++;
+                lastarr[ki] = s[i];
             }
             arr[i] = ki+1;
         }

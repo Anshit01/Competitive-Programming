@@ -11,7 +11,36 @@ using namespace std;
 class Solution {
 public:
     bool canConvertString(string s, string t, int k) {
-        
+        vector<int> availableTurns(27, INT32_MAX);
+        f(i, 1, 27){
+            availableTurns[i] = k/26;
+            if(k%26 >= i){
+                availableTurns[i]++;
+            }
+        }
+        int n = s.length();
+        if(n != t.length()){
+            return false;
+        }
+        vector<int> reqTurns(27, 0);
+        f(i, 0, n){
+            reqTurns[diff(s[i], t[i])]++;
+        }
+        reqTurns[0] = 0;
+        f(i, 1, 27){
+            if(reqTurns[i] > availableTurns[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int diff(char s, char t){
+        if(s <= t){
+            return t-s;
+        }else{
+            return 26 - s + t;
+        }
     }
 };
 

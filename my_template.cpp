@@ -7,7 +7,8 @@
 #define dbg(x) cerr << x << endl
 #define dbg2(x, y) cerr << x << ' ' << y << endl
 #define dbg3(x, y, z) cerr << x << ' ' << y << ' ' << z << endl
-#define inputArray(arr) 
+#define inputArray(arr) f(i, 0, arr.size()) cin >> arr[i];
+#define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl;
 #define mod 1000000007
 using namespace std;
 

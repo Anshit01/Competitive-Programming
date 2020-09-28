@@ -15,28 +15,20 @@ using namespace std;
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int n;
-    cin >> n;
-    vector<int> arr(n, 0);
-    vector<bool> check(n+1, false);
-    f(i, 1, n){
-        int a, b;
-        cout << "? " << i << ' ' << i+1 << endl;
-        cout.flush();
-        cin >> a;
-        cout << "? " << i+1 << ' ' << i << endl;
-        cout.flush();
-        cin >> b;
-        if(a == -1 || b == -1){
-            return 0;
+    int T;
+    cin >> T;
+    while(T--){
+        int n;
+        cin >> n;
+        int x;
+        cin >> x;
+        int ans = 0;
+        if(n <= 2){
+            ans = 1;
+        }else{
+            n -= 3;
+            ans = (n/x)+2;
         }
-        if(a > b){
-            arr[i]
-        }
-    cout << "! ";
-    f(i, 0, arr.size()){
-        cout << arr[i] << ' ';
+        cout << ans << endl;
     }
-    cout << endl;
-    cout.flush();
 }

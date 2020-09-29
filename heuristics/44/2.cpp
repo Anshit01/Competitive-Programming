@@ -1,7 +1,7 @@
 /* *>>>>>Anshit_Bhardwaj<<<<<* */
 #include <bits/stdc++.h>
 #define ll long long
-#define int long long
+//#define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 #define what_is(x) cerr << #x << " is " << x << endl
 #define dbg(x) cerr << x << endl
@@ -15,32 +15,15 @@ using namespace std;
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    inputArray(arr);
-    vector<int> prearr({0});
-    set<int> preset({0});
-    int zeros = 0;
-
-    f(i, 0, n){
-        int sum;
-        if(prearr.size() == 0){
-            sum = arr[i];
-        }else{
-            sum = prearr.back() + arr[i];
+    int T;
+    cin >> T;
+    while(T--){
+        int n;
+        cin >> n;
+        double sum = 0;
+        f(i, 1, n+1){
+            sum += (double)n/i;
         }
-        if(preset.find(sum) == preset.end()){
-            preset.insert(sum);
-            prearr.push_back(sum);
-        }else{
-            prearr = vector<int>({0});
-            preset = set<int>({0});
-            prearr.push_back(arr[i]);
-            preset.insert(arr[i]);
-            zeros++;
-        }
+        cout << fixed << setprecision(2) << sum << endl;
     }
-
-    cout << zeros << endl;
 }

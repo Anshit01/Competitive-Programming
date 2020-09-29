@@ -17,30 +17,6 @@ int32_t main(){
     cin.tie(0);
     int n;
     cin >> n;
-    vector<int> arr(n);
-    inputArray(arr);
-    vector<int> prearr({0});
-    set<int> preset({0});
-    int zeros = 0;
-
-    f(i, 0, n){
-        int sum;
-        if(prearr.size() == 0){
-            sum = arr[i];
-        }else{
-            sum = prearr.back() + arr[i];
-        }
-        if(preset.find(sum) == preset.end()){
-            preset.insert(sum);
-            prearr.push_back(sum);
-        }else{
-            prearr = vector<int>({0});
-            preset = set<int>({0});
-            prearr.push_back(arr[i]);
-            preset.insert(arr[i]);
-            zeros++;
-        }
-    }
-
-    cout << zeros << endl;
+    n /= 2;
+    cout << 2 * (n * (n+1)) << endl;
 }

@@ -12,38 +12,39 @@
 #define mod 1000000007
 using namespace std;
 
-class Solution {
-    map<int, long long> dp;
-
-public:
-
-    Solution(){
-        dp[0] = 1;
-        dp[1] = 1;
-    }
-
-    int numTrees(int n) {
-        if(dp.find(n) != dp.end()){
-            return dp[n];
-        }
-        long long ans = 0;
-        for(int i = 0; i < n; i++){
-            ans += numTrees(i) * numTrees(n-i-1);
-        }
-        dp[n] = ans;
-        return ans;
-    }
-};
-
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T;
     cin >> T;
-    Solution sol;
     while(T--){
         int n;
         cin >> n;
-        cout << sol.numTrees(n) << endl;
+        int k;
+        cin >> k;
+        string a, b;
+        cin >> a >> b;
+        map<char, int> amap, bmap;
+        f(i, 'a', 'z' + 1){
+            amap[(char)i] = 0;
+            bmap[(char)i] = 0;
+        }
+        f(i, 0, n){
+            amap[a[i]]++;
+            bmap[b[i]]++;
+        }
+        bool ansyes = true;
+        int bal = 0;
+        f(c, 'a', 'z' + 1){
+            if(amap[c] + bal >= bmap[c] && abs(amap[c] - bmap[c]) % k == 0){
+                int diff = amap[c] + bal - bmap[c];
+                amap[c] = bal - diff;
+                bal = diff;
+            }else{
+                ansyes = false;
+                break;
+            }
+        }
+        cout << (ansyes ? "YES" : "NO") << endl;
     }
 }

@@ -13,25 +13,37 @@
 #define endl '\n'
 using namespace std;
 
+int n, m;
+
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T;
     cin >> T;
     while(T--){
-        int n;
         cin >> n;
-        vector<int> arr(n);
-        inputArray(arr);
+        cin >> m;
+        char c;
+        vector<vector<int>> arr(n+1, vector<int>(m+2, 0));
+        f(i, 0, n){
+            f(j, 1, m+1){
+                cin >> c;
+                if(c == '*'){
+                    arr[i][j] = 1;
+                }else{
+                    arr[i][j] = 0;
+                }
+            }
+        }
         int ans = 0;
-        f(i, 1, n){
-            ans += abs(arr[i] - arr[i-1]);
+        f(i, n, 0){
+            f(j, 1, m+1){
+                if(arr[i][j] == 1){
+                    arr[i][j] += min(arr[i+1][j], min(arr[i+1][j-1], arr[i+1][j+1]));
+                    ans += arr[i][j];
+                }
+            }
         }
-        int ded = abs(arr[0] - arr[1]);
-        ded = max(ded, abs(arr[n-1] - arr[n-2]));
-        f(i, 0, n-2){
-            ded = max(ded, abs(arr[i] - arr[i+1]) + abs(arr[i+1] - arr[i+2]) - abs(arr[i] - arr[i+2]));
-        }
-        cout << ans - ded << endl;
+        cout << ans << endl;
     }
 }

@@ -16,34 +16,23 @@ using namespace std;
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T;
-    cin >> T;
-    while(T--){
-        int n;
-        cin >> n;
-        int k;
-        cin >> k;
-        vector<pair<int, int>> pts;
-        int x, y;
-        f(i, 0, n){
-            cin >> x >> y;
-            pts.push_back({x, y});
+    int n;
+    cin >> n;
+    int r = (n+1)/2;
+    int ans = 0;
+    if(n % 2 == 1){
+        f(i, 1, r+1){
+            ans += 4 * i;
         }
-        bool flag = true;
-        int ans = -1;
-        f(i, 0, n){
-            flag = true;
-            f(j, 0, n){
-                if(abs(pts[i].first - pts[j].first) + abs(pts[i].second - pts[j].second) > k){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
-                ans = 1;
-                break;
-            }
+    }else if(n % 4 == 0){
+        ans = 1;
+        for(int i = 2; i <= r; i += 2){
+            ans += 4 * i;
         }
-        cout << ans << endl;
+    }else{
+        for(int i = 1; i <= r; i+= 2){
+            ans += 4 * i;
+        }
     }
+    cout << ans << endl;
 }

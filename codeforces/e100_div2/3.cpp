@@ -1,7 +1,7 @@
 /* *>>>>>Anshit_Bhardwaj<<<<<* */
 #include <bits/stdc++.h>
 #define ll long long
-//#define int long long
+#define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 #define what_is(x) cerr << #x << " is " << x << endl
 #define dbg(x) cerr << x << endl
@@ -21,28 +21,33 @@ int32_t main(){
     while(T--){
         int n;
         cin >> n;
-        int k;
-        cin >> k;
-        vector<pair<int, int>> pts;
-        int x, y;
+        vector<pair<int, int>> arr(n+1);
         f(i, 0, n){
-            cin >> x >> y;
-            pts.push_back({x, y});
+            cin >> arr[i].first >> arr[i].second;
         }
-        bool flag = true;
-        int ans = -1;
+        int ans = 0;
+        arr[n] = {INT64_MAX, 0};
+        int ts = 0, te = 0;
+        int ds = 0, de = 0;
+       
         f(i, 0, n){
-            flag = true;
-            f(j, 0, n){
-                if(abs(pts[i].first - pts[j].first) + abs(pts[i].second - pts[j].second) > k){
-                    flag = false;
-                    break;
+            if(arr[i].first >= te){
+                ds = de;
+                de = arr[i].second;
+                ts = arr[i].first;
+                te = ts + abs(ds - de);
+                if(arr[i+1].first - ts >= abs(ds - de)){
+                    ans++;
+                }
+            }else{
+                int ti = ts + abs(arr[i].second - ds);
+                if((arr[i].second <= de && arr[i].second >= (ds + arr[i].first - ts)) && arr[i].first + abs(arr[i].second ) || (arr[i].second >= de && arr[i].second <= (ds - arr[i].first + ts))){
+                    if(ti <= arr[i+1].first){
+                        ans++;
+                    }
                 }
             }
-            if(flag){
-                ans = 1;
-                break;
-            }
+
         }
         cout << ans << endl;
     }

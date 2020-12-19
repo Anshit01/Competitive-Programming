@@ -21,35 +21,27 @@ int32_t main(){
     while(T--){
         int n;
         cin >> n;
-        int m;
-        cin >> m;
-        vector<int> arr(n);
-        inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
-        bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
-                flag = false;
+        string s;
+        cin >> s;
+        int j = 0, i = 0;
+        string yr = "2020";
+        while(i < n && j < 4){
+            if(s[i] == yr[j]){
+                i++;
+                j++;
+            }else if(i == j){
+                i = n - 4 + j;
+                if(i == j){
+                    break;
+                }
+            }else{
                 break;
             }
-            i--;
         }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
-            }
-        }
-        if(!flag){
-            cout << 1 - product << endl;
+        if(j == 4){
+            cout << "YES" << endl;
         }else{
-            cout << 1 << endl;
+            cout << "NO" << endl;
         }
     }
 }

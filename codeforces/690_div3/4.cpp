@@ -21,35 +21,35 @@ int32_t main(){
     while(T--){
         int n;
         cin >> n;
-        int m;
-        cin >> m;
         vector<int> arr(n);
-        inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
-        bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
-                flag = false;
-                break;
-            }
-            i--;
+        int mx = 0;
+        int sum = 0;
+        f(i, 0, n){
+            cin >> arr[i];
+            mx = max(mx, arr[i]);
+            sum += arr[i];
         }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
-            }
+        int k = mx;
+        int ans = n-1;
+        int s = 0;
+        while(k < sum){
+            if(sum % k == 0){
+                s = 0;
+                f(i, 0, n){
+                    s += arr[i];
+                    if(s > k){
+                        break;
+                    }else if(s == k){
+                        s = 0;
+                    }
+                }
+                if(s == 0){
+                    ans = n - sum / k;
+                    break;
+                }
+            }    
+            k++;
         }
-        if(!flag){
-            cout << 1 - product << endl;
-        }else{
-            cout << 1 << endl;
-        }
+        cout << ans << endl;
     }
 }

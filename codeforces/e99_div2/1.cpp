@@ -19,37 +19,9 @@ int32_t main(){
     int T;
     cin >> T;
     while(T--){
-        int n;
-        cin >> n;
-        int m;
-        cin >> m;
-        vector<int> arr(n);
-        inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
-        bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
-                flag = false;
-                break;
-            }
-            i--;
-        }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
-            }
-        }
-        if(!flag){
-            cout << 1 - product << endl;
-        }else{
-            cout << 1 << endl;
-        }
+        string s;
+        cin >> s;
+        int ans = s.length();
+        cout << ans << endl;
     }
 }

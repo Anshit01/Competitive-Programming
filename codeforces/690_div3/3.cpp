@@ -13,6 +13,23 @@
 #define endl '\n'
 using namespace std;
 
+vector<int> ans;
+
+bool rec(int sum, int d, int req){
+    if(req - sum <= d){
+        ans.clear();
+        ans.push_back(req - sum);
+        return true;
+    }
+    for(int i = d; i > 0; i--){
+        if(rec(sum + i, i - 1, req)){
+            ans.push_back(i);
+            return true;
+        }
+    }
+    return false;
+}
+
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -20,36 +37,18 @@ int32_t main(){
     cin >> T;
     while(T--){
         int n;
+        ans.clear();
         cin >> n;
-        int m;
-        cin >> m;
-        vector<int> arr(n);
-        inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
-        bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
-                flag = false;
-                break;
+        auto flag = rec(0, 9, n);
+        if(flag){
+            sort(ans.begin(), ans.end());
+            f(i, 0, ans.size()){
+                cout << ans[i];
             }
-            i--;
-        }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
-            }
-        }
-        if(!flag){
-            cout << 1 - product << endl;
+            cout << endl;
         }else{
-            cout << 1 << endl;
+            cout << -1 << endl;
         }
     }
+
 }

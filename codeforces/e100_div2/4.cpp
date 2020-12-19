@@ -13,6 +13,24 @@
 #define endl '\n'
 using namespace std;
 
+bool isPossible(int n, vector<int>& arr, int k){
+    int avail = 0;
+    int last = 2*n;
+    f(i, n, k-1){
+        avail += max(0, last - arr[i] - 1);
+        last = arr[i];
+    }
+    f(i, k, 0){
+        avail += max(0, last - arr[i] - 1);
+        avail--;
+        if(avail < 0){
+            return false;
+        }
+        last = arr[i];
+    }
+    return true;
+}
+
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -21,35 +39,33 @@ int32_t main(){
     while(T--){
         int n;
         cin >> n;
-        int m;
-        cin >> m;
         vector<int> arr(n);
         inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
+        int ans = 1;
+        int l = 0, r = n;
+        int mid;
+        while(l <= r){
+            mid = l + (r-l)/2;
+            if(isPossible(n, arr, mid)){
+                ans = mid;
+                l = mid + 1;
+            }else{
+                r = mid - 1;
+            }
+        }
         bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
+        int avail = 1;
+        int last = 0;
+        f(i, 0, n){
+            avail += max(0, arr[i] - last - 1);
+            avail--;
+            if(avail < 0){
                 flag = false;
                 break;
             }
-            i--;
         }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
-            }
-        }
-        if(!flag){
-            cout << 1 - product << endl;
-        }else{
-            cout << 1 << endl;
-        }
+        if(flag) ans++;
+        
+        cout << ans << endl;
     }
 }

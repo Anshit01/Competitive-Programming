@@ -1,7 +1,7 @@
 /* *>>>>>Anshit_Bhardwaj<<<<<* */
 #include <bits/stdc++.h>
 #define ll long long
-//#define int long long
+#define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 #define what_is(x) cerr << #x << " is " << x << endl
 #define dbg(x) cerr << x << endl
@@ -21,35 +21,23 @@ int32_t main(){
     while(T--){
         int n;
         cin >> n;
-        int m;
-        cin >> m;
         vector<int> arr(n);
         inputArray(arr);
-        vector<int> arrsorted(arr);
-        sort(arrsorted.begin(), arrsorted.end());
-        int k = n+1;
-        int i = n-1;
-        bool flag = true;
-        while(i >= 0){
-            if(arr[i] != arrsorted[i]){
-                k = i+1;
-                flag = false;
-                break;
-            }
-            i--;
-        }
-        double product = 1;
-        float f;
-        f(j, 0, m){
-            cin >> i >> f;
-            if(i >= k){
-                product *= (1-f);
+        vector<int> ans1(arr), ans2(arr);
+        int s1 = 0, s2 = 0;
+        f(i, 0, n){
+            if(i % 2 == 0){
+                s1 += arr[i] - 1;
+                ans1[i] = 1;
+            }else{
+                s2 += arr[i] - 1;
+                ans2[i] = 1;
             }
         }
-        if(!flag){
-            cout << 1 - product << endl;
+        if(s1 < s2){
+            printArray(ans1);
         }else{
-            cout << 1 << endl;
+            printArray(ans2);
         }
     }
 }

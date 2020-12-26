@@ -13,19 +13,26 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    
-}
-
 int32_t main(){
     ios::sync_with_stdio(0);
-    cin.tie(NULL);
+    cin.tie(0);
     int T;
     cin >> T;
     while(T--){
-        solve();       
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        int cnt = 0;
+        f(i, 0, n){
+            if(s[i] == '0'){
+                cnt++;
+            }
+        }
+        if(cnt <= 30){
+            cout << "YES" << endl;
+        }else{
+            cout << "NO" << endl;
+        }
     }
-    return 0;
 }

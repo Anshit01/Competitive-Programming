@@ -13,19 +13,15 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    
-}
-
 int32_t main(){
     ios::sync_with_stdio(0);
-    cin.tie(NULL);
+    cin.tie(0);
     int T;
     cin >> T;
     while(T--){
-        solve();       
+        vector<int> a(4);
+        inputArray(a);
+        sort(a.begin(), a.end());
+        cout << min(a[0], a[1]) * min(a[2], a[3]) << endl;
     }
-    return 0;
 }

@@ -1,7 +1,7 @@
 /* *>>>>>Anshit_Bhardwaj<<<<<* */
 #include <bits/stdc++.h>
 #define ll long long
-//#define int long long
+#define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 #define what_is(x) cerr << #x << " is " << x << endl
 #define dbg(x) cerr << x << endl
@@ -13,19 +13,20 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    
-}
-
 int32_t main(){
     ios::sync_with_stdio(0);
-    cin.tie(NULL);
+    cin.tie(0);
     int T;
     cin >> T;
     while(T--){
-        solve();       
+        int x, y, k, n;
+        cin >> x >> y >> k >> n;
+        int k2 = 2 * k;
+        int dist = abs(x-y);
+        if(dist % k2 == 0){
+            cout << "Yes" << endl;
+        }else{
+            cout << "No" << endl;
+        }
     }
-    return 0;
 }

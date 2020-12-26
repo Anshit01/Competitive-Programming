@@ -13,24 +13,6 @@
 #define endl '\n'
 using namespace std;
 
-bool isPossible(int n, vector<int>& arr, int k){
-    int avail = 0;
-    int last = 2*n+1;
-    f(i, n, k){
-        avail += max(0, last - arr[i] - 1);
-        last = arr[i];
-    }
-    f(i, k, 0){
-        avail += max(0, last - arr[i] - 1);
-        avail--;
-        if(avail < 0){
-            return false;
-        }
-        last = arr[i];
-    }
-    return true;
-}
-
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -41,31 +23,30 @@ int32_t main(){
         cin >> n;
         vector<int> arr(n);
         inputArray(arr);
-        int ans = 1;
-        int l = 0, r = n;
-        int mid;
-        while(l <= r){
-            mid = l + (r-l)/2;
-            if(isPossible(n, arr, mid)){
-                ans = mid;
-                l = mid + 1;
-            }else{
-                r = mid - 1;
-            }
-        }
         bool flag = true;
-        int avail = 0;
-        int last = 1;
-        f(i, 0, n){
-            avail += max(0, arr[i] - last - 1);
-            avail--;
-            if(avail < 0){
+        f(i, 0, n-1){
+            if(arr[i] != arr[i+1]){
                 flag = false;
                 break;
             }
         }
-        if(flag) ans++;
-        
-        cout << ans << endl;
+        if(flag){
+            cout << "NO" << endl;
+        }else{
+            cout << "YES" << endl;
+            vector<pair<int, int>> pairs(n);
+            f(i, 0, n){
+                pairs[i] = {arr[i], i+1};
+            }
+            sort(arr.begin(), arr.end());
+            sort(pairs.begin(), pairs.end());
+            int i = upper_bound(arr.begin(), arr.end(), arr[0]) - arr.begin();
+            f(j, i, n){
+                cout << pairs[0].second << ' ' << pairs[j].second << endl;
+            }
+            f(j, 1, i){
+                cout << pairs[j].second << ' ' << pairs[i].second << endl;
+            }
+        }
     }
 }

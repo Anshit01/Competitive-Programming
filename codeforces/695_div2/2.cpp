@@ -13,16 +13,6 @@
 #define endl '\n'
 using namespace std;
 
-bool inInterval(int a, int l, int r){
-    if(l > r){
-        swap(l, r);
-    }
-    if(l < a && r > a){
-        return true;
-    }
-    return false;
-}
-
 void solve() {
     int n;
     cin >> n;
@@ -30,34 +20,37 @@ void solve() {
     inputArray(arr);
     vector<int> peak(n, 0);
     int cnt = 0;
-    int32_t ans = 0;
-    f(i, 1, n-1){
-        if(arr[i] > max(arr[i+1], arr[i-1])){
-            peak[i] = 1;
+    int mincnt = 0;
+    auto getPeak = [&](int i) {
+        if(i <= 0 || i >= n-1){
+            return 0;
+        }
+        if(arr[i] > max(arr[i-1], arr[i+1])){
+            return 1;
+        }
+        if(arr[i] < min(arr[i-1], arr[i+1])){
+            return -1;
+        }
+        return 0;
+    };
+    f(i, 0, n){
+        peak[i] = getPeak(i);
+        if(peak[i] != 0){
             cnt++;
-            ans = 1;
-        }else if(arr[i] < min(arr[i+1], arr[i-1])){
-            peak[i] = -1;
-            cnt++;
-            ans = 1;
         }
     }
+    mincnt = cnt;
     f(i, 1, n-1){
-        if(peak[i] == 1 && peak[i-1] == -1 && peak[i+1] == -1){
-            ans = 3;
-        }else if(peak[i] == -1 && peak[i-1] == 1 && peak[i+1] == 1){
-            ans = 3;
-        }else if(abs(peak[i] - peak[i+1]) == 2){
-            if(i-1 == 0 || i+2 == n-1){
-                ans = max(ans, 2);
-            }else if(i+2 < n && inInterval(arr[i-1], arr[i], arr[i+1]) && inInterval(arr[i+2], arr[i], arr[i+1])){
-                ans = max(ans, 1);
-            }else{
-                ans = max(ans, 2);
-            }
-        }
+        int oldpeaks = abs(peak[i-1]) + abs(peak[i]) + abs(peak[i+1]);
+        int tmp = arr[i];
+        arr[i] = arr[i-1];
+        int newpeaks1 = abs(getPeak(i-1)) + abs(getPeak(i)) + abs(getPeak(i+1));
+        arr[i] = arr[i+1];
+        int newpeaks2 = abs(getPeak(i-1)) + abs(getPeak(i)) + abs(getPeak(i+1));
+        mincnt = min(mincnt, min(cnt - oldpeaks + newpeaks1, cnt - oldpeaks + newpeaks2));
+        arr[i] = tmp;
     }
-    cout << cnt - ans << endl;
+    cout << max(0ll, mincnt) << endl;
 
 }
 

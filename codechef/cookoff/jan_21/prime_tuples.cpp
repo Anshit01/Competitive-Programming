@@ -13,36 +13,46 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    int x;
-    cin >> x;
-    long double sum = 0;
-    vector<int> arr(n);
-    long double a, b;
-    f(i, 0, n){
-        cin >> a >> b;
-        arr[i] = a*b/100;
-    }
-    int ans = -1;
-    f(i, 0, n){
-        sum += arr[i];
-        if(sum > x && abs(sum - x) > 1e-9){
-            ans = i+1;
-            break;
+vector<char> generatePrimes(int n){
+    vector<char> is_prime(n+1, true);
+    is_prime[0] = false;
+    is_prime[1] = false;
+    for(int i = 2; i*i <= n; i++){
+        if(is_prime[i]){
+            for(int j = i*i; j <= n; j += i){
+                is_prime[j] = false;
+            }
         }
     }
-    cout << ans << endl;
+    // vector<int> primes;
+    // for(int i = 2; i <= n; i++){
+    //     if(is_prime[i]){
+    //         primes.push_back(i);
+    //     }
+    // }
+    return is_prime;
 }
+
+
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
-    // cin >> T;
+    int T;
+    cin >> T;
+    auto is_prime = generatePrimes(1e6+1);
+    vector<int> dp(1e6+1, 0);
+    int cnt = 0;
+    f(i, 2, 1e6+1){
+        if(is_prime[i] && is_prime[i-2]){
+            cnt++;
+        }
+        dp[i] = cnt;
+    }
     while(T--){
-        solve();
+        int n;
+        cin >> n;
+        cout << dp[n] << endl;
     }
     return 0;
 }

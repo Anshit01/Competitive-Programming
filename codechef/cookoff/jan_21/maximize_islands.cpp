@@ -16,31 +16,46 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    int x;
-    cin >> x;
-    long double sum = 0;
-    vector<int> arr(n);
-    long double a, b;
+    int m;
+    cin >> m;
+    vector<string> mat(n);
     f(i, 0, n){
-        cin >> a >> b;
-        arr[i] = a*b/100;
+        cin >> mat[i];
     }
-    int ans = -1;
+    int as = 0, ad = 0, bs = 0, bd = 0;
     f(i, 0, n){
-        sum += arr[i];
-        if(sum > x && abs(sum - x) > 1e-9){
-            ans = i+1;
-            break;
+        f(j, 0, m){
+            if((i+j)% 2 == 0){
+                if(mat[i][j] == '*'){
+                    as++;
+                }else{
+                    ad++;
+                }
+            }else{
+                if(mat[i][j] == '*'){
+                    bs++;
+                }else{
+                    bd++;
+                }
+            }
         }
     }
-    cout << ans << endl;
+    int bt = n*m/2;
+    int at = (n*m) - bt;
+    int a = n*m - as - bd;
+    int b = n*m - ad - bs;
+    if((n*m) % 2 == 0){
+        cout << min(a, b) << endl;
+    }else{
+        cout << a << endl;
+    }
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
-    // cin >> T;
+    int T;
+    cin >> T;
     while(T--){
         solve();
     }

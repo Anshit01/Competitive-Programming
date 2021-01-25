@@ -16,31 +16,14 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    int x;
-    cin >> x;
-    long double sum = 0;
-    vector<int> arr(n);
-    long double a, b;
-    f(i, 0, n){
-        cin >> a >> b;
-        arr[i] = a*b/100;
-    }
-    int ans = -1;
-    f(i, 0, n){
-        sum += arr[i];
-        if(sum > x && abs(sum - x) > 1e-9){
-            ans = i+1;
-            break;
-        }
-    }
-    cout << ans << endl;
+    
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
-    // cin >> T;
+    int T;
+    cin >> T;
     while(T--){
         solve();
     }

@@ -16,21 +16,14 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    int x;
-    cin >> x;
-    long double sum = 0;
     vector<int> arr(n);
-    long double a, b;
+    inputArray(arr);
+    int ans = 0;
     f(i, 0, n){
-        cin >> a >> b;
-        arr[i] = a*b/100;
-    }
-    int ans = -1;
-    f(i, 0, n){
-        sum += arr[i];
-        if(sum > x && abs(sum - x) > 1e-9){
-            ans = i+1;
-            break;
+        int mn = INT32_MAX;
+        f(j, i, n){
+            mn = min(mn, arr[j]);
+            ans = max(ans, mn*(j-i+1));
         }
     }
     cout << ans << endl;

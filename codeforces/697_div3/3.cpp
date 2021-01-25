@@ -13,34 +13,38 @@
 #define endl '\n'
 using namespace std;
 
+int ca[(int)2e5+2], cb[(int)2e5+2];
+
 void solve() {
-    int n;
-    cin >> n;
-    int x;
-    cin >> x;
-    long double sum = 0;
-    vector<int> arr(n);
-    long double a, b;
-    f(i, 0, n){
-        cin >> a >> b;
-        arr[i] = a*b/100;
+    int a, b, k;
+    cin >> a >> b >> k;
+    vector<int> ara(k), arb(k);
+    f(i, 0, k){
+        cin >> ara[i];
+        ca[ara[i]]++;
     }
-    int ans = -1;
-    f(i, 0, n){
-        sum += arr[i];
-        if(sum > x && abs(sum - x) > 1e-9){
-            ans = i+1;
-            break;
-        }
+    f(i, 0, k){
+        cin >> arb[i];
+        cb[arb[i]]++;
     }
-    cout << ans << endl;
+    int cnt = 0;
+    f(i, 0, k){
+        ca[ara[i]]--;
+        cb[arb[i]]--;
+        cnt += (k-i-1) - ca[ara[i]] - cb[arb[i]];
+    }
+    cout << cnt << endl;
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
-    // cin >> T;
+    int T;
+    f(i, 0, (int)2e5+2){
+        ca[i] = 0;
+        cb[i] = 0;
+    }
+    cin >> T;
     while(T--){
         solve();
     }

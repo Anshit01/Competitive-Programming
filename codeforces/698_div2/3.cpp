@@ -13,18 +13,37 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
+bool solve() {
     int n;
     cin >> n;
-    map<int, int> mp;
-    int a;
+    int n2 = 2*n;
+    vector<int> d(n2);
+    inputArray(d);
+    sort(d.begin(), d.end(), greater<int>());
+    vector<int> arr;
+    for(int i = 0; i < n2; i += 2){
+        if(d[i] == d[i+1]){
+            arr.push_back(d[i]);
+        }else{
+            return false;
+        }
+    }
+    set<int> a;
+    int suma = 0;
     f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+        int num = arr[i] - 2*suma;
+        if(num % (2*(n-i)) == 0){
+            num /= 2*(n-i);
+        }else{
+            return false;
+        }
+        if(a.count(num) || num <= 0){
+            return false;
+        }
+        a.insert(num);
+        suma += num;
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
-    }
+    return true;
 }
 
 int32_t main(){
@@ -33,7 +52,11 @@ int32_t main(){
     int T;
     cin >> T;
     while(T--){
-        solve();
+        if(solve()){
+            cout << "YES" << endl;
+        }else{
+            cout << "NO" << endl;
+        }
     }
     return 0;
 }

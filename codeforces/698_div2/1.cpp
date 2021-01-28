@@ -16,15 +16,17 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    map<int, int> mp;
-    int a;
+    vector<int> cnt(n+1, 0);
+    vector<int> arr(n);
+    inputArray(arr);
     f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+        cnt[arr[i]]++;
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    int ans = 0;
+    f(i, 0, n+1){
+        ans = max(ans, cnt[i]);
     }
+    cout << ans << endl;
 }
 
 int32_t main(){

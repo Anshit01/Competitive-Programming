@@ -16,15 +16,42 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    map<int, int> mp;
-    int a;
+    int k;
+    cin >> k;
+    vector<int> arr(n);
+    inputArray(arr);
+    multiset<int, greater<int>> st;
     f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+        st.insert(arr[i]);
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    int cnt = 0;
+    while(!st.empty()){
+        auto top = st.begin();
+        int f = *top;
+        st.erase(top);
+        if(f >= k){
+            cnt++;
+        }else{
+            if(st.empty()){
+                break;
+            }
+            auto it = st.lower_bound(k - f);
+            if(it == st.end()){
+                it--;
+            }
+            if(f + *it >= k){
+                cnt++;
+                st.erase(it);
+            }else if(it != st.begin()){
+                it--;
+                cnt++;
+                st.erase(it);
+            }else{
+                break;
+            }
+        }
     }
+    cout << cnt << endl;
 }
 
 int32_t main(){

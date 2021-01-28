@@ -16,15 +16,29 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    map<int, int> mp;
-    int a;
+    string s;
+    cin >> s;
+    int dir = 0;
     f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+        if(s[i] == '0'){
+            dir++;
+        }else{
+            dir--;
+        }
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    dir = (dir % 4) + 4;
+    dir %= 4;
+    char ans;
+    if(dir == 0){
+        ans = 'E';
+    }else if(dir == 1){
+        ans = 'S';
+    }else if(dir == 2){
+        ans = 'W';
+    }else{
+        ans = 'N';
     }
+    cout << ans << endl;
 }
 
 int32_t main(){

@@ -16,14 +16,18 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    map<int, int> mp;
-    int a;
+    vector<int> arr(n);
+    inputArray(arr);
+    int cnt = 0;
     f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+        if(arr[i] % 2 == 0){
+            cnt++;
+        }
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    if(cnt < n){
+        cout << cnt << endl;
+    }else{
+        cout << -1 << endl;
     }
 }
 

@@ -13,17 +13,41 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    map<int, int> mp;
-    int a;
-    f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+bool isfav(int n, int d){
+    while(n > 0){
+        if(n % 10 == d){
+            return true;
+        }
+        n /= 10;
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    return false;
+}
+
+void solve() {
+    int q;
+    cin >> q;
+    int d, n;
+    cin >> d;
+    f(_, 0, q){
+        cin >> n;
+        if(n >= d*11){
+            cout << "YES" << endl;
+            continue;
+        }
+        vector<bool> dp(d*11+1, false);
+        dp[d] = true;
+        f(i, d+1, dp.size()){
+            if(dp[i-d]){
+                dp[i] = true;
+            }else if(isfav(i, d)){
+                dp[i] = true;
+            }
+        }
+        if(dp[n]){
+            cout << "YES" << endl;
+        }else{
+            cout << "NO" << endl;
+        }
     }
 }
 

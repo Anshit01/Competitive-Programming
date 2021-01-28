@@ -13,18 +13,27 @@
 #define endl '\n'
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    map<int, int> mp;
-    int a;
-    f(i, 0, n){
-        cin >> a;
-        mp[a]++;
+bool solve() {
+    int a, b;
+    cin >> a >> b;
+    int axb = a^b;
+    int c, d;
+    d = b;
+    int cxd;
+    f(i, 1, a){
+        cxd = i^d;
+        if(cxd > axb){
+            return true;
+        }
     }
-    for(auto pr : mp){
-        cout << pr.first << ' ' << pr.second << endl;
+    c = a;
+    f(i, 1, b){
+        cxd = c^i;
+        if(cxd > axb){
+            return true;
+        }
     }
+    return false;
 }
 
 int32_t main(){
@@ -33,7 +42,11 @@ int32_t main(){
     int T;
     cin >> T;
     while(T--){
-        solve();
+        if(solve()){
+            cout << "Yes" << endl;
+        }else{
+            cout << "No" << endl;
+        }
     }
     return 0;
 }

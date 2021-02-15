@@ -12,45 +12,26 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    int m;
-    cin >> m;
-    vector<vector<char>> grid(n, vector<char>(m));
-    f(i, 0, n){
-        f(j, 0, m){
-            cin >> grid[i][j];
-        }
+    int k;
+    cin >> k;
+    if(n % 2 == 0){
+        k %= n;
+        if(k == 0) k = n;
+        cout << k << endl;
+        return;
+    }else{
+        k += (k-1)/(n/2);
+        k %= n;
+        if(k == 0) k = n;
+        cout << k << endl;
     }
-    int ans = m;
-    int minReq = m/2;
-    bool flag;
-    int cnt;
-    for(int b = 0; b <= (1 << m); b++){
-        minReq = __builtin_popcount(b);
-        flag = true;
-        f(i, 0, n){
-            cnt = 0;
-            f(j, 0, m){
-                if(b & (1 << j) && grid[i][j]){
-                    cnt++;
-                }
-            }
-            if(cnt < minReq/2){
-                flag = false;
-                break;
-            }
-        }
-        if(flag){
-            ans = min(ans, m - minReq);
-        }
-    }
-    cout << ans << endl;
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while(T--){
         solve();
         // if(solve())

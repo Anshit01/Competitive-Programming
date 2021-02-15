@@ -9,48 +9,48 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
+bool check(int a, int n){
+    if(a % 2 == 0) a++;
+    int b = (a*a)/2;
+    if(b > n) return false;
+    int d = a*a + b*b;
+    int c = sqrt(d);
+    if(c > n || c*c != d) return false;
+    return true;
+}
+
 void solve() {
     int n;
     cin >> n;
-    int m;
-    cin >> m;
-    vector<vector<char>> grid(n, vector<char>(m));
-    f(i, 0, n){
-        f(j, 0, m){
-            cin >> grid[i][j];
+    int l = 1, r = n;
+    int ans = 0;
+    int mid;
+    while(l <= r){
+        mid = (l+r)/2;
+        if(check(mid, n)){
+            ans = mid;
+            l = mid + 1;
+        }else{
+            r = mid - 1;
         }
     }
-    int ans = m;
-    int minReq = m/2;
-    bool flag;
-    int cnt;
-    for(int b = 0; b <= (1 << m); b++){
-        minReq = __builtin_popcount(b);
-        flag = true;
-        f(i, 0, n){
-            cnt = 0;
-            f(j, 0, m){
-                if(b & (1 << j) && grid[i][j]){
-                    cnt++;
-                }
-            }
-            if(cnt < minReq/2){
-                flag = false;
-                break;
-            }
-        }
-        if(flag){
-            ans = min(ans, m - minReq);
-        }
-    }
-    cout << ans << endl;
+    // if(ans == 1) ans = 2;
+    cout << ans/2 << endl;
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
+    // int n = 1e7;
+    // f(i, 0, n){
+    //     if(check(i, 1e9)){
+    //         cout << i << ' ';
+    //     }
+        
+    // }
+    // cout << endl;
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while(T--){
         solve();
         // if(solve())

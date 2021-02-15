@@ -10,6 +10,17 @@ const int mod = 1e9+7;
 using namespace std;
 
 class Solution {
+
+    void buildSentences(int n, int i, string cur, vector<bool>& dp, unordered_map<int, int>& wlen, int maxlen, vector<string>& ans){
+        if(i == 0){
+            ans.push_back(cur);
+            return;
+        }
+        for(int j = i-1; j >= 0 && i-j <= maxlen; j--){
+            
+        }
+    }
+
 public:
     vector<string> wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> dict;
@@ -28,9 +39,9 @@ public:
                 }
             }
         }
-        unordered_set<int> wlen;
+        unordered_map<int, int> wlen;
         for(string w : wordDict){
-            wlen.insert(w.size());
+            wlen[w.size()]++;
         }
         
     }

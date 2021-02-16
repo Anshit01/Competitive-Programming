@@ -18,19 +18,20 @@ void solve() {
     f(i, 0, n){
         f(j, 0, m){
             cin >> grid[i][j];
+            grid[i][j] -= '0';
         }
     }
     int ans = m;
     int minReq = m/2;
     bool flag;
     int cnt;
-    for(int b = 0; b <= (1 << m); b++){
+    for(int b = 0; b < (1 << m); b++){
         minReq = __builtin_popcount(b);
         flag = true;
         f(i, 0, n){
             cnt = 0;
             f(j, 0, m){
-                if(b & (1 << j) && grid[i][j]){
+                if((b & (1 << j)) && grid[i][j]){
                     cnt++;
                 }
             }

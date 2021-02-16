@@ -12,33 +12,22 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    if(n % 2){
-        bool win = true;
-        f(i, 0, n){
-            f(j, i+1, n){
-                if(win)
-                    cout << 1 << ' ';
-                else
-                    cout << -1 << ' ';
-                win = !win;
-            }
-        }
-    }else{
-        f(i, 0, n-1){
-            f(j, 0, n-i-1){
-                if((i&1) == 0 && j == 0){
-                    cout << 0 << ' ';
-                }else{
-                    if(j&1){
-                        cout << 1 << ' ';
-                    }else{
-                        cout << -1 << ' ';
-                    }
-                }
-            }
-        }
+    vector<int> arr(n);
+    inputArray(arr);
+    map<int, int> mp;
+    f(i, 0, n){
+        mp[arr[i]]++;
     }
-    cout << endl;
+    vector<int> cnt;
+    for(auto pr : mp){
+        cnt.push_back(pr.second);
+    }
+    sort(cnt.begin(), cnt.end());
+    int ans = n;
+    f(i, 0, (int)cnt.size()){
+        ans = min(ans, n - (cnt[i]*((int)cnt.size()-i)));
+    }
+    cout << ans << endl;
 }
 
 int32_t main(){

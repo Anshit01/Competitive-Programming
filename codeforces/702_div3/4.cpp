@@ -9,34 +9,32 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
+void setDepth(vector<pair<int, int>>& a, int l, int r, int curDepth){
+    int maxi = l;
+    f(i, l+1, r+1){
+        if(a[i].first > a[maxi].first){
+            maxi = i;
+        }
+    }
+    a[maxi].second = curDepth;
+    if(maxi > l){
+        setDepth(a, l, maxi-1, curDepth+1);
+    }
+    if(maxi < r){
+        setDepth(a, maxi+1, r, curDepth+1);
+    }
+}
+
 void solve() {
     int n;
     cin >> n;
-    if(n % 2){
-        bool win = true;
-        f(i, 0, n){
-            f(j, i+1, n){
-                if(win)
-                    cout << 1 << ' ';
-                else
-                    cout << -1 << ' ';
-                win = !win;
-            }
-        }
-    }else{
-        f(i, 0, n-1){
-            f(j, 0, n-i-1){
-                if((i&1) == 0 && j == 0){
-                    cout << 0 << ' ';
-                }else{
-                    if(j&1){
-                        cout << 1 << ' ';
-                    }else{
-                        cout << -1 << ' ';
-                    }
-                }
-            }
-        }
+    vector<pair<int, int>> a(n);
+    f(i, 0, n){
+        cin >> a[i].first;
+    }
+    setDepth(a, 0, n-1, 0);
+    f(i, 0, n){
+        cout << a[i].second << ' ';
     }
     cout << endl;
 }

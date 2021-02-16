@@ -12,31 +12,28 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    if(n % 2){
-        bool win = true;
-        f(i, 0, n){
-            f(j, i+1, n){
-                if(win)
-                    cout << 1 << ' ';
-                else
-                    cout << -1 << ' ';
-                win = !win;
-            }
+    vector<int> arr(n);
+    inputArray(arr);
+    vector<int> a(arr);
+    sort(a.begin(), a.end());
+    int wini = 0;
+    int sum = 0;
+    f(i, 0, n){
+        if(sum < a[i]){
+            wini = i;
         }
-    }else{
-        f(i, 0, n-1){
-            f(j, 0, n-i-1){
-                if((i&1) == 0 && j == 0){
-                    cout << 0 << ' ';
-                }else{
-                    if(j&1){
-                        cout << 1 << ' ';
-                    }else{
-                        cout << -1 << ' ';
-                    }
-                }
-            }
+        sum += a[i];
+    }
+    int lb = a[wini];
+    vector<int> ans;
+    f(i, 0, n){
+        if(arr[i] >= lb){
+            ans.push_back(i+1);
         }
+    }
+    cout << ans.size() << endl;
+    for(int a : ans) {
+        cout << a << ' ';
     }
     cout << endl;
 }

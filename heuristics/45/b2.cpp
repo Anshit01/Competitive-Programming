@@ -9,36 +9,44 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
+// bool check(vector<int>& a, vector<int>& cost, int m, ){
+
+// }
+
 void solve() {
     int n;
     cin >> n;
-    if(n % 2){
-        bool win = true;
-        f(i, 0, n){
-            f(j, i+1, n){
-                if(win)
-                    cout << 1 << ' ';
-                else
-                    cout << -1 << ' ';
-                win = !win;
-            }
+    int m;
+    cin >> m;
+    string s;
+    cin >> s;
+    vector<int> a(n);
+    f(i, 0, n){
+        a[i] = s[i] - 'a';
+    }
+    vector<int> cost(26);
+    inputArray(cost);
+
+    auto check = [&] (int l) {
+        vector<int> cnt(26, 0);
+        f(i, 0, l){
+            cnt[a[i]]++;
         }
-    }else{
-        f(i, 0, n-1){
-            f(j, 0, n-i-1){
-                if((i&1) == 0 && j == 0){
-                    cout << 0 << ' ';
-                }else{
-                    if(j&1){
-                        cout << 1 << ' ';
-                    }else{
-                        cout << -1 << ' ';
-                    }
-                }
-            }
+        
+        return true;
+    };
+
+    int l = 1, r = n, mid, ans = 0;
+    while(l <= r){
+        mid = (l+r)/2;
+        if(check(mid)){
+            ans = mid;
+            l = mid + 1;
+        }else{
+            r = mid - 1;
         }
     }
-    cout << endl;
+    cout << ans << endl;
 }
 
 int32_t main(){

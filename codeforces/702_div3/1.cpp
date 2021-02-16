@@ -12,33 +12,21 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    if(n % 2){
-        bool win = true;
-        f(i, 0, n){
-            f(j, i+1, n){
-                if(win)
-                    cout << 1 << ' ';
-                else
-                    cout << -1 << ' ';
-                win = !win;
+    vector<int> a(n);
+    inputArray(a);
+    int cnt = 0;
+    f(i, 0, n-1){
+        int mx = max(a[i], a[i+1]);
+        int mn = min(a[i], a[i+1]);
+        if((mx-1)/mn > 1){
+            while(mn < mx){
+                mn *= 2;
+                cnt++;
             }
-        }
-    }else{
-        f(i, 0, n-1){
-            f(j, 0, n-i-1){
-                if((i&1) == 0 && j == 0){
-                    cout << 0 << ' ';
-                }else{
-                    if(j&1){
-                        cout << 1 << ' ';
-                    }else{
-                        cout << -1 << ' ';
-                    }
-                }
-            }
+            cnt--;
         }
     }
-    cout << endl;
+    cout << cnt << endl;
 }
 
 int32_t main(){

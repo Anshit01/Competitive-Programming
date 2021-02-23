@@ -9,10 +9,6 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
-// bool check(vector<int>& a, vector<int>& cost, int m, ){
-
-// }
-
 void solve() {
     int n;
     cin >> n;
@@ -29,11 +25,29 @@ void solve() {
 
     auto check = [&] (int l) {
         vector<int> cnt(26, 0);
+        int price = 0;
         f(i, 0, l){
             cnt[a[i]]++;
+            price += cost[a[i]];
         }
-        
-        return true;
+        auto maxDiscount = [&]() {
+            int ans = 0;
+            f(i, 0, 26){
+                ans = max(ans, cnt[i]*cost[i]);
+            }
+            return ans;
+        };
+        int minprice = price - maxDiscount();
+        f(i, l, n){
+            price += cost[a[i]];
+            price -= cost[a[i-l]];
+            cnt[a[i]]++;
+            cnt[a[i-l]]--;
+            minprice = min(minprice, price - maxDiscount());
+        }
+        if(minprice <= m)
+            return true;
+        return false;
     };
 
     int l = 1, r = n, mid, ans = 0;
@@ -53,7 +67,7 @@ int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
-    cin >> T;
+    // cin >> T;
     while(T--){
         solve();
         // if(solve())

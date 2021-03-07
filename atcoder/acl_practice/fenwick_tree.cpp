@@ -12,6 +12,16 @@ using namespace std;
 class FenwickTree {
     vector<int> arr;
     vector<int> tree;
+
+    int sum(int i){
+        int s = 0;
+        while(i >= 0){
+            s += tree[i];
+            i = (i & (i+1)) - 1;
+        }
+        return s;
+    }
+
 public:
     int size;
 
@@ -35,19 +45,6 @@ public:
         }
     }
 
-    int sum(int i){
-        int s = 0;
-        while(i >= 0){
-            s += tree[i];
-            i = (i & (i+1)) - 1;
-        }
-        return s;
-    }
-
-    int query(int l, int r){
-        return sum(r) - sum(l-1);
-    }
-
     void update(int i, int val){
         int curVal = arr[i];
         arr[i] = val;
@@ -56,21 +53,28 @@ public:
             i = i | (i+1);
         }
     }
+
+    int query(int l, int r){
+        return sum(r) - sum(l-1);
+    }
 };
 
+
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    vector<int> arr(n);
-    inputArray(arr);
-    FenwickTree ftree(arr);
+    int n;
+    cin >> n;
+    int q;
+    cin >> q;
+    vector<int> a(n);
+    inputArray(a);
+    FenwickTree ftree(a);
     f(i, 0, q){
         int op, a, b;
         cin >> op >> a >> b;
-        if(op == 1){
-            ftree.update(a-1, b);
+        if(op == 0){
+            ftree.add(a, b);
         }else{
-            cout << ftree.query(a-1, b-1) << endl;
+            cout << ftree.query(a, b-1) << endl;
         }
     }
 }

@@ -1,76 +1,72 @@
 /* *>>>>>Anshit_Bhardwaj<<<<<* */
 #include <bits/stdc++.h>
-#define ll long long
-//#define int long long
+#define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
-#define what_is(x) cerr << #x << " is " << x << endl
-#define dbg(x) cerr << x << endl
-#define dbg2(x, y) cerr << x << ' ' << y << endl
-#define dbg3(x, y, z) cerr << x << ' ' << y << ' ' << z << endl
 #define inputArray(arr) f(i, 0, arr.size()) cin >> arr[i]
 #define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl
-#define mod 1000000007
 #define endl '\n'
+typedef long long ll;
+const int mod = 1e9+7;
 using namespace std;
 
-void rec(map<pair<int, int>, pair<int, bool>>& dp, vector<vector<int>>& xpts, vector<vector<int>>& ypts, bool findx, int time, int x, int y){
-    if(time < dp[{x, y}].first){
-        dp[{x, y}].first = time;
+void solve() {
+    int n, k, x, y;
+    cin >> n >> k >> x >> y;
+    map<pair<int, int>, bool> vis;
+    vector<vector<int>> Yatx(n+1);
+    vector<vector<int>> Xaty(n+1);
+    f(i, 0, k){
+        int a, b;
+        cin >> a >> b;
+        vis[{a, b}] = false;
+        Xaty[b].push_back(a);
+        Yatx[a].push_back(b);
     }
-    if(dp[{x, y}].second == false){
-        if(findx){
-            for(int xi : xpts[y]){
-                // rec(dp, xpts, ypts, false, )
-                
+    queue<pair<pair<int, int>, int>> q;
+    q.push({{1, 1}, 0});
+    vis[{1, 1}] = true;
+    while(!q.empty()){
+        queue<pair<pair<int, int>, int>> qn;
+        while(!q.empty()){
+            auto pr = q.front();
+            q.pop();
+            int x1 = pr.first.first;
+            int y1 = pr.first.second;
+            int time = pr.second;
+            if(x1 == x && y1 == y){
+                cout << "YES" << endl;
+                cout << time << endl;
+                return;
             }
-        }else{
-            for(int yi : ypts[x]){
-
+            for(int yy : Yatx[x1]){
+                if(!vis[{x1, yy}]){
+                    qn.push({{x1, yy}, time + abs(y1 - yy)});
+                    vis[{x1, yy}] = true;
+                }
+            }
+            for(int xx : Xaty[y1]){
+                if(!vis[{xx, y1}]){
+                    qn.push({{xx, y1}, time + abs(x1 - xx)});
+                    vis[{xx, y1}] = true;
+                }
             }
         }
+        q = qn;
     }
-}
-
-int solve() {
-    int n;
-    cin >> n;
-    int k, x, y;
-    cin >> k >> x >> y;
-    if(x == 1 && y == 1){
-        return 0;
-    }
-    vector<vector<int>> xpts(n+1, vector<int>());
-    vector<vector<int>> ypts(n+1, vector<int>());
-    map<pair<int, int>, pair<int, bool>> dp;
-    int a, b;
-    f(i, 0, k){
-        cin >> a >> b;
-        dp[{a, b}] = {INT32_MAX, false};
-        xpts[b].push_back(a);
-        ypts[a].push_back(b);
-    }
-    rec(dp, xpts, ypts, true, 0, 1, 1);
-    rec(dp, xpts, ypts, false, 0, 1, 1);
-    if(dp[{x, y}].first != INT32_MAX){
-        return dp[{x, y}].first;
-    }else{
-        return -1;
-    }
+    cout << "NO" << endl;
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int T;
-    cin >> T;
+    int T = 1;
+    // cin >> T;
     while(T--){
-        int ans = solve();
-        if(ans == -1){
-            cout << "NO" << endl;
-        }else{
-            cout << "YES" << endl;
-            cout << ans << endl;
-        }
+        solve();
+        // if(solve())
+        // 	cout << "YES" << endl;
+        // else
+        // 	cout << "NO" << endl;
     }
     return 0;
 }

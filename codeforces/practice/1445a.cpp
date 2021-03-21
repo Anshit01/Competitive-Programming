@@ -6,31 +6,26 @@
 #define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl
 #define endl '\n'
 typedef long long ll;
-typedef long double ld;
 const int mod = 1e9+7;
 using namespace std;
 
 void solve() {
     int n;
     cin >> n;
-    vector<int> X, Y;
-    f(i, 0, 2*n){
-        int x, y;
-        cin >> x >> y;
-        if(x == 0){
-            Y.push_back(abs(y));
-        }else{
-            X.push_back(abs(x));
+    int k;
+    cin >> k;
+    vector<int> a(n), b(n);
+    inputArray(a);
+    inputArray(b);
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end(), greater<int>());
+    f(i, 0, n){
+        if(a[i] + b[i] > k){
+            cout << "No" << endl;
+            return;
         }
     }
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-    ld ans = 0;
-    f(i, 0, n){
-        int x = X[i], y = Y[i];
-        ans += sqrt(ld(x*x) + ld(y*y));
-    }
-    cout << fixed << setprecision(10) << ans << endl;
+    cout << "Yes" << endl;
 }
 
 int32_t main(){

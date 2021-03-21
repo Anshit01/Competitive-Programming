@@ -6,31 +6,39 @@
 #define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl
 #define endl '\n'
 typedef long long ll;
-typedef long double ld;
 const int mod = 1e9+7;
 using namespace std;
 
 void solve() {
     int n;
     cin >> n;
-    vector<int> X, Y;
-    f(i, 0, 2*n){
-        int x, y;
-        cin >> x >> y;
-        if(x == 0){
-            Y.push_back(abs(y));
-        }else{
-            X.push_back(abs(x));
+    vector<int> a(n);
+    inputArray(a);
+    int sum = 0;
+    f(i, 0, n){
+        sum += a[i];
+    }
+    if(sum & 1){
+        cout << "NO" << endl;
+        return;
+    }
+    sum /= 2;
+    vector<vector<bool>> dp(n+1, vector<bool>(sum+1, 0));
+    f(i, 0, n+1){
+        dp[i][0] = 1;
+    }
+    f(i, 1, n+1){
+        f(j, 1, sum+1){
+            if(j >= a[i-1]){
+                dp[i][j] = dp[i-1][j - a[i-1]] || dp[i-1][j];
+            }
         }
     }
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-    ld ans = 0;
-    f(i, 0, n){
-        int x = X[i], y = Y[i];
-        ans += sqrt(ld(x*x) + ld(y*y));
+    if(dp[n][sum]){
+        cout << "YES " << endl;
+    }else{
+        cout << "NO " << endl;
     }
-    cout << fixed << setprecision(10) << ans << endl;
 }
 
 int32_t main(){

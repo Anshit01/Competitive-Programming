@@ -6,31 +6,23 @@
 #define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl
 #define endl '\n'
 typedef long long ll;
-typedef long double ld;
 const int mod = 1e9+7;
 using namespace std;
 
 void solve() {
     int n;
     cin >> n;
-    vector<int> X, Y;
-    f(i, 0, 2*n){
-        int x, y;
-        cin >> x >> y;
-        if(x == 0){
-            Y.push_back(abs(y));
-        }else{
-            X.push_back(abs(x));
+    int k;
+    cin >> k;
+    int cnt = 0;
+    string s;
+    cin >> s;
+    f(i, 0, n/2){
+        if(s[i] != s[n-i-1]){
+            cnt++;
         }
     }
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-    ld ans = 0;
-    f(i, 0, n){
-        int x = X[i], y = Y[i];
-        ans += sqrt(ld(x*x) + ld(y*y));
-    }
-    cout << fixed << setprecision(10) << ans << endl;
+    cout << abs(cnt - k) << endl;
 }
 
 int32_t main(){
@@ -38,7 +30,8 @@ int32_t main(){
     cin.tie(0);
     int T = 1;
     cin >> T;
-    while(T--){
+    f(t, 1, T+1){
+        cout << "Case #" << t << ": ";
         solve();
         // if(solve())
         // 	cout << "YES" << endl;

@@ -6,31 +6,45 @@
 #define printArray(arr) f(i, 0, arr.size()) cout << arr[i] << ' '; cout << endl
 #define endl '\n'
 typedef long long ll;
-typedef long double ld;
 const int mod = 1e9+7;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> X, Y;
-    f(i, 0, 2*n){
-        int x, y;
-        cin >> x >> y;
-        if(x == 0){
-            Y.push_back(abs(y));
-        }else{
-            X.push_back(abs(x));
+    int x, y;
+    cin >> x >> y;
+    int l = 0, r = 0, u = 0, d = 0;
+    string s;
+    cin >> s;
+    for(char c : s){
+        if(c == 'U') u++;
+        else if(c == 'D') d++;
+        else if(c == 'L') l++;
+        else if(c == 'R') r++;
+    }
+    bool xok = false, yok = false;
+    if(x > 0){
+        if(r >= x){
+            xok = true;
+        }
+    }else{
+        if(l >= -x){
+            xok = true;
         }
     }
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-    ld ans = 0;
-    f(i, 0, n){
-        int x = X[i], y = Y[i];
-        ans += sqrt(ld(x*x) + ld(y*y));
+    if(y > 0){
+        if(u >= y){
+            yok = true;
+        }
+    }else{
+        if(d >= -y){
+            yok = true;
+        }
     }
-    cout << fixed << setprecision(10) << ans << endl;
+    if(xok && yok){
+        cout << "YES" << endl;
+    }else{
+        cout << "NO" << endl;
+    }
 }
 
 int32_t main(){

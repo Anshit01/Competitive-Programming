@@ -8,49 +8,63 @@
 using namespace std;
 
 vector<vector<int>> threeSum(vector<int>& nums) {
-    unordered_set<int> num;
-    unordered_set<int> num_double;
-    int zero_count = 0;
-    for(int x : nums){
-        if(x == 0) zero_count++;
-        else if(num.find(x) != num.end() and x != 0){
-            num_double.insert(x);
-        }
-        else{
-            num.insert(x);
-        }
-    }
-    if(zero_count > 0) num.insert(0);
+    int n = nums.size();
+    vector<vector<pair<int, int>>> twosums(1e6, vector<pair<int, int>>());
+    auto set = [&](int sum, int i, int j) {
+        twosums[4*1e5 + sum].push_back({i, j});
+    };
+    auto get = [&](int sum) ->vector<pair<int, int>>& {
+        return twosums[4*1e5 + sum];
+    };
     vector<vector<int>> ans;
-    int tofind;
-    for(auto itr1 = num.begin(); itr1 != num.end(); itr1++){
-        unordered_set<int> st;
-        auto itr2 = itr1;
-        itr2++;
-        for(; itr2 != num.end(); itr2++){
-            tofind = -(*itr1 + *itr2);
-            if(st.find(tofind) != st.end()){
-                ans.push_back({*itr1, *itr2, *st.find(tofind)});
+
+    for(int i = 0; i < n; i++){
+        for(int j = i+1; j < n; j++){
+            get(nums[i] + nums[j]).push_back({i, j});
+            
+        }
+    }
+    for(int i = 0; i < n; i++){
+        for(auto pr : get(-nums[i])){
+            if(i != pr.first && i != pr.second){
+                ans.push_back({nums[pr.first], nums[pr.second], nums[i]});
             }
-            st.insert(*itr2);
         }
     }
-    for(int x : num_double){
-        tofind = -x * 2;
-        if(num.find(tofind) != num.end()){
-            ans.push_back({x, x, *(num.find(tofind))});
+    return ans;
+}
+
+vector<vector<int>> threeSum2(vector<int>& nums) {
+    int n = nums.size();
+    vector<vector<int>> ans;
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i < n; i++){
+        if(i != 0 && nums[i] == nums[i-1]){
+            i++;
+            continue;
         }
-    }
-    if(zero_count >= 3){
-        ans.push_back({0, 0, 0});
+        for(int j = i+1; j < n; j++){
+            if(j != i+1 && nums[j] == nums[j-1]){
+                j++;
+                continue;
+            }
+            if(binary_search(nums.begin() + j + 1, nums.end(), -(nums[i] + nums[j]))){
+                ans.push_back({nums[i], nums[j], -(nums[i]+ nums[j])});
+            }
+        }
     }
     return ans;
 }
 
 int main(){
     ios::sync_with_stdio(0);
-    vector<int> vect = {-1, 0, 1, 2, -1, -4};
-    auto ans = threeSum(vect);
+    int n;
+    cin >> n;
+    vector<int> vect(n);
+    f(i, 0, n){
+        cin >> vect[i];
+    }
+    auto ans = threeSum2(vect);
     for(auto vec : ans){
         for(auto x : vec){
             cout << x << ' ';
@@ -59,3 +73,4 @@ int main(){
     }
     
 }
+// [-1 0 1 2 -1 -4 -2 -3 3 0 4]

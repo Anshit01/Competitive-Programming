@@ -1,4 +1,4 @@
-/* *>>>>>Anshit_Bhardwaj<<<<<* */
+/* *>>>>> anshit01 <<<<<* */
 #include <bits/stdc++.h>
 #define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
@@ -12,28 +12,23 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<pair<string, int>> arr;
-    map<string, int> totalScores;
-    f(i, 0, n){
-        string s;
-        int score;
-        cin >> s >> score;
-        arr.push_back({s, score});
-        totalScores[s] += score;
-    }
-    int maxScore = 0;
-    for(auto pr : totalScores){
-        maxScore = max(maxScore, pr.second);
-    }
-    map<string, int> scores;
-    for(auto pr : arr){
-        scores[pr.first] += pr.second;
-        if(scores[pr.first] >= maxScore && totalScores[pr.first] == maxScore){
-            cout << pr.first << endl;
-            return;
+    vector<int> arr(n);
+    inputArray(arr);
+    sort(arr.begin(), arr.end());
+    int ans = INT64_MAX;
+    f(s, 0, n){
+        int ldiff = 0, rdiff = 0;
+        f(i, 0, s){
+            ldiff += arr[s] - arr[i];
         }
+        f(i, s+1, n){
+            rdiff += arr[i] - arr[s];
+        }
+        int ltotal = ldiff + rdiff + (arr[s] - arr[0])*(n-s-1);
+        int rtotal = ldiff + rdiff + (arr[n-1] - arr[s]) * (s);
+        ans = min(ans, min(ltotal, rtotal));
     }
-
+    cout << ans << endl;
 }
 
 int32_t main(){

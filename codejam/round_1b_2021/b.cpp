@@ -1,4 +1,4 @@
-/* *>>>>>Anshit_Bhardwaj<<<<<* */
+/* *>>>>> anshit01 <<<<<* */
 #include <bits/stdc++.h>
 #define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
@@ -12,36 +12,16 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<pair<string, int>> arr;
-    map<string, int> totalScores;
-    f(i, 0, n){
-        string s;
-        int score;
-        cin >> s >> score;
-        arr.push_back({s, score});
-        totalScores[s] += score;
-    }
-    int maxScore = 0;
-    for(auto pr : totalScores){
-        maxScore = max(maxScore, pr.second);
-    }
-    map<string, int> scores;
-    for(auto pr : arr){
-        scores[pr.first] += pr.second;
-        if(scores[pr.first] >= maxScore && totalScores[pr.first] == maxScore){
-            cout << pr.first << endl;
-            return;
-        }
-    }
-
+    
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
-    // cin >> T;
-    while(T--){
+    cin >> T;
+    f(t, 1, T+1){
+        cout << "Case #" << t << ": ";
         solve();
         // if(solve())
         // 	cout << "YES" << endl;

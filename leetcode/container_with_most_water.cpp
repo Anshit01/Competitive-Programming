@@ -1,4 +1,4 @@
-/* *>>>>>Anshit_Bhardwaj<<<<<* */
+/* *>>>>> anshit01 <<<<<* */
 #include <bits/stdc++.h>
 #define int long long
 #define f(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
@@ -9,38 +9,38 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int l = 0, r = height.size() - 1;
+        int ans = 0;
+        while(l < r){
+            ans = max(ans, min(height[l], height[r]) * (r-l));
+            if(height[l] < height[r]){
+                l++;
+            }else{
+                r--;
+            }
+        }
+        return ans;
+    }
+};
+
 void solve() {
     int n;
     cin >> n;
-    vector<pair<string, int>> arr;
-    map<string, int> totalScores;
-    f(i, 0, n){
-        string s;
-        int score;
-        cin >> s >> score;
-        arr.push_back({s, score});
-        totalScores[s] += score;
-    }
-    int maxScore = 0;
-    for(auto pr : totalScores){
-        maxScore = max(maxScore, pr.second);
-    }
-    map<string, int> scores;
-    for(auto pr : arr){
-        scores[pr.first] += pr.second;
-        if(scores[pr.first] >= maxScore && totalScores[pr.first] == maxScore){
-            cout << pr.first << endl;
-            return;
-        }
-    }
-
+    vector<int> arr(n);
+    inputArray(arr);
+    Solution sol;
+    int ans = sol.maxArea(arr);
+    cout << ans << endl;
 }
 
 int32_t main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while(T--){
         solve();
         // if(solve())

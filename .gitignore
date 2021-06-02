@@ -13,3 +13,6 @@
 *.out
 *.exe
 *.o
+
+__pycache__
+*.pyc
